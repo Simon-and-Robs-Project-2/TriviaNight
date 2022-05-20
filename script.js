@@ -1,11 +1,10 @@
 
-fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple')
+fetch('https://opentdb.com/api.php?amount=10&type=multiple')
 .then ( (response) => {
     return response.json()
 })
 .then ( (triviaData) => {
     console.log(triviaData);
-    prompt("what is the answer")
 })
 
 
@@ -13,11 +12,14 @@ fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple')
 
 
 // namespace object
+const triviaApp = {};
 
 // saved variables / selectors?
 
 // init function definition
+triviaApp.init = () => {
 
+}
 
 // load welcome screen to the window (ask for user's name, difficulty level?)
     // event listener that listens to user clicking 'start game' -> clears the welcome screen off the page and runs a startGameFunction
@@ -39,3 +41,4 @@ fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple')
 
 
 // init function call
+triviaApp.init()
