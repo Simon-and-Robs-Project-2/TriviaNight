@@ -5,7 +5,6 @@ fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple')
 })
 .then ( (triviaData) => {
     console.log(triviaData);
-    prompt("what is the answer")
 })
 
 
