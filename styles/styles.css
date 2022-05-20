@@ -157,6 +157,18 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
   box-sizing: border-box;
 }
 
+section:first-child {
+  text-align: center;
+  border: 3px solid black;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.startGame {
+  margin: 10px 0;
+  padding: 10px 40px;
+}
+
 html {
   font-size: 125%;
 }
