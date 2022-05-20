@@ -157,16 +157,23 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
   box-sizing: border-box;
 }
 
-section:first-child {
-  text-align: center;
-  border: 3px solid black;
-  width: 50%;
-  margin: 0 auto;
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
 }
 
-.startGame {
-  margin: 10px 0;
-  padding: 10px 40px;
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  -webkit-clip-path: inset(100%);
+          clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
 
 html {
@@ -181,4 +188,84 @@ wrapper {
 
 h1 {
   text-align: center;
+}
+
+body {
+  background: #1C0C5B;
+}
+
+header {
+  color: white;
+}
+
+section:first-child {
+  text-align: center;
+  border: 3px solid black;
+  width: 50%;
+  margin: 0 auto;
+  border-radius: 5%;
+  max-height: 100vh;
+  background-color: papayawhip;
+}
+
+.welcomePage {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 50px 0 100px 0;
+}
+.welcomePage p {
+  display: block;
+  width: 70%;
+}
+.welcomePage .startGame {
+  display: block;
+  position: absolute;
+  bottom: -75px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 auto;
+  border: none;
+  color: white;
+  background: #C996CC;
+}
+
+form {
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 70%;
+}
+form input[type=text] {
+  border: none;
+  padding: 20px;
+}
+form input[type=radio] {
+  opacity: 0.01;
+  position: absolute;
+}
+form input[type=radio]:checked + label {
+  background: #916BBF;
+}
+form label.difficulty {
+  border: 1px solid #C996CC;
+  padding: 20px;
+  margin: 5px 0;
 }
