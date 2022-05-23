@@ -1,18 +1,15 @@
-
-fetch('https://opentdb.com/api.php?amount=10&type=multiple')
-.then ( (response) => {
-    return response.json()
-})
-.then ( (triviaData) => {
-    console.log(triviaData);
-})
-
-
-
+fetch('https://opentdb.com/api.php?amount=10&difficulty=easy')
+    .then((response) => {
+        return response.json()
+    })
+    .then((triviaData) => {
+        console.log(triviaData);
+    })
 
 
 // namespace object
 const triviaApp = {};
+
 
 // saved variables / selectors?
 
