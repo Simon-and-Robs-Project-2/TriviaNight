@@ -1,10 +1,11 @@
-fetch('https://opentdb.com/api.php?amount=10&difficulty=easy')
-    .then((response) => {
-        return response.json()
-    })
-    .then((triviaData) => {
-        console.log(triviaData);
-    })
+// fetch('https://opentdb.com/api.php?amount=10&difficulty=easy')
+//     .then((response) => {
+//         return response.json()
+//     })
+//     .then((triviaData) => {
+//         console.log(triviaData);
+//     })
+
 
 
 
@@ -21,6 +22,8 @@ triviaApp.baseUrl = 'https://opentdb.com/api.php';
 triviaApp.allQuestions = [];
 
 triviaApp.questionCounter = 0;
+
+triviaApp.scoreCounter = 0;
 
 // init function definition
 triviaApp.init = () => {
@@ -78,7 +81,7 @@ triviaApp.getQuestions = (chosenDifficulty) => {
 
 triviaApp.loadQuestion = (indexNumber) => {
 
-    if ( triviaApp.questionCounter <= 10) {
+    if ( triviaApp.questionCounter <= 3) {
         const question = triviaApp.allQuestions[indexNumber].question;
         const wrongAnswers = triviaApp.allQuestions[indexNumber].incorrect_answers;
         const rightAnswer = triviaApp.allQuestions[indexNumber].correct_answer;
@@ -99,23 +102,25 @@ triviaApp.loadQuestion = (indexNumber) => {
             <h2 id="question">${question}</h2>
     
             <form action="">
-                <input type="radio" name="triviaAnswer" value="" id="option1" class="sr-only" >
-                <label for="option1" class="answer">TEST 1</label>
+                <input type="radio" name="triviaAnswer" value="${allAnswers[0]}" id="option1" class="sr-only" >
+                <label for="option1" class="answer">${allAnswers[0]}</label>
         
-                <input type="radio" name="triviaAnswer" value="" id="option2" class="sr-only" >
-                <label for="option2" class="answer">Blue</label>
+                <input type="radio" name="triviaAnswer" value="${allAnswers[1]}" id="option2" class="sr-only" >
+                <label for="option2" class="answer">${allAnswers[1]}</label>
+                
+                <input type="radio" name="triviaAnswer" value="${allAnswers[2]}" id="option3" class="sr-only" >
+                <label for="option3" class="answer">${allAnswers[2]}</label>
         
-                <input type="radio" name="triviaAnswer" value="" id="option3" class="sr-only" >
-                <label for="option3" class="answer">Red</label>
-        
-                <input type="radio" name="triviaAnswer" value="" id="option4" class="sr-only" >
-                <label for="option4" class="answer">Orange</label>
+                <input type="radio" name="triviaAnswer" value="${allAnswers[3]}" id="option4" class="sr-only" >
+                <label for="option4" class="answer">${allAnswers[3]}</label>
         
             </form>
 
             <button class="submitAnswer" id="submitAnswer">Submit!</button>
+
+            <div id="areYouRight"></div>
         `;
- 
+
         } else if (allAnswers.length === 2) {
 
             triviaApp.triviaCard.innerHTML = `
@@ -123,21 +128,54 @@ triviaApp.loadQuestion = (indexNumber) => {
     
             <form action="">
 
-                <input type="radio" name="triviaAnswer" value="" id="option1" class="sr-only" >
-                <label for="option1" class="answer">TEST 1</label>
+                <input type="radio" name="triviaAnswer" value="${allAnswers[0]}" id="option1" class="sr-only" >
+                <label for="option1" class="answer">${allAnswers[0]}</label>
         
-                <input type="radio" name="triviaAnswer" value="" id="option2" class="sr-only" >
-                <label for="option2" class="answer">Blue</label>
+                <input type="radio" name="triviaAnswer" value="${allAnswers[1]}" id="option2" class="sr-only" >
+                <label for="option2" class="answer">${allAnswers[1]}</label>
         
             </form>
 
             <button class="submitAnswer" id="submitAnswer">Submit!</button>
+            
+            <div id="areYouRight"></div>
         `;
         }
+        const submitButton = document.getElementById('submitAnswer');
+        submitButton.addEventListener('click', function () {
+            const userAnswer = document.querySelector('input[name="triviaAnswer"]:checked');
+            const computerReply = document.getElementById('areYouRight');
+            const nextQuestion = document.createElement('button')
+            nextQuestion.innerHTML = 'Next Question';
+            console.log(userAnswer);
+            if (userAnswer.value === rightAnswer){
+                computerReply.innerText =`you are right ${rightAnswer}`;
+                computerReply.classList.add('banana');
+                triviaApp.scoreCounter++;
+
+            }else{
+                computerReply.innerText = `you are wrong, the right answer was ${rightAnswer}`;
+                console.log("you are wrong");
+            }
+
+            triviaApp.questionCounter++;
+
+            computerReply.append(nextQuestion);
+
+            nextQuestion.addEventListener('click', function(){
+                triviaApp.loadQuestion(triviaApp.questionCounter);
+            })
+        });
+
+
+        // const nextQuestion = document.createElement('button')
+        // nextQuestion.addEventListener('click')
+        // nextQuestion.innerHTML = 'Next Question';
 
 
     } else { 
         // end the game, print score, etc..
+        alert('game over');
     }
 
     

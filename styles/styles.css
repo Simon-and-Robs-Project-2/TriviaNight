@@ -274,3 +274,7 @@ form label.difficulty, form label.answer {
   padding: 20px;
   margin: 5px 0;
 }
+
+.banana {
+  background-color: green;
+}
