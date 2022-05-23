@@ -1,12 +1,84 @@
+body {
+    background: $bodyBackground;
+}
+
+header {
+    color: white;
+    font-family: $primaryFont;
+
+    .neon {
+        text-transform: uppercase;
+    }
+}
+
 section:first-child {
     text-align: center;
     border: 3px solid black;
     width: 50%;
     margin: 0 auto;
+    border-radius: 5%;
+    max-height: 100vh;
+    background-color: $cardBackground;
 }
 
 
-.startGame {
-    margin: 10px 0;
-    padding: 10px 40px;
+
+.welcomePage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0 100px 0;
+
+    p {
+        display: block;
+        width: 70%;
+    }
+
+    .startGame {
+        display: block;
+        position: absolute;
+        bottom: -75px;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 0 auto;
+        border: none;
+        color: white;
+        background: $accentTwo;
+    }
+}
+
+
+form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+
+    input[type="text"] {
+        border: none;
+        padding: 20px;
+    }
+
+    input[type="radio"] {
+        opacity: 0.01;
+        position: absolute;
+
+        &:checked + label {
+            background: $accentOne;
+        }
+    }
+
+    label {
+        &.difficulty,
+        &.answer {
+            border: 1px solid $accentTwo;
+            padding: 20px;
+            margin: 5px 0;
+        }   
+    }
+
+    
 }
