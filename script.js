@@ -93,6 +93,7 @@ triviaApp.loadQuestion = (indexNumber) => {
         allAnswers.push(rightAnswer);
 
         // RANDOMIZE THE ARRAY OF ANSWERS - DEAL WITH LATER
+        triviaApp.shuffle(allAnswers);
 
         // ADD stuff to the DOM
 
@@ -184,6 +185,49 @@ triviaApp.loadQuestion = (indexNumber) => {
     // when the submit button is pressed i++, loadQuestion(i)
 }
 
+
+// RANDOMIZER Helper function to shuffle the order of the all answers array:
+// Solution found from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+
+triviaApp.shuffle = (array) => {
+    let currentIndex = array.length,  randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}
+
+
+
+
+
+// function shuffle(array) {
+//     let currentIndex = array.length,  randomIndex;
+  
+//     // While there remain elements to shuffle.
+//     while (currentIndex != 0) {
+  
+//       // Pick a remaining element.
+//       randomIndex = Math.floor(Math.random() * currentIndex);
+//       currentIndex--;
+  
+//       // And swap it with the current element.
+//       [array[currentIndex], array[randomIndex]] = [
+//         array[randomIndex], array[currentIndex]];
+//     }
+  
+//     return array;
+//   }
 
 
 
