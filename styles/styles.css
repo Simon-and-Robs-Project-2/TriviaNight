@@ -201,6 +201,20 @@ header {
 }
 header .neon {
   text-transform: uppercase;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-shadow: 0 0 0.95em #1da9cc;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  white-space: nowrap;
+  -webkit-filter: blur(0.007em);
+          filter: blur(0.007em);
 }
 
 section:first-child {
