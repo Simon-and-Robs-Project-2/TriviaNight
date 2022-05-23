@@ -4,6 +4,11 @@ body {
 
 header {
     color: white;
+    font-family: $primaryFont;
+
+    .neon {
+        text-transform: uppercase;
+    }
 }
 
 section:first-child {
@@ -17,10 +22,6 @@ section:first-child {
 }
 
 
-// .startGame {
-//     margin: 10px 0;
-//     padding: 10px 40px;
-// }
 
 .welcomePage {
     position: relative;
@@ -71,7 +72,8 @@ form {
     }
 
     label {
-        &.difficulty {
+        &.difficulty,
+        &.answer {
             border: 1px solid $accentTwo;
             padding: 20px;
             margin: 5px 0;
