@@ -1,28 +1,13 @@
-// fetch('https://opentdb.com/api.php?amount=10&difficulty=easy')
-//     .then((response) => {
-//         return response.json()
-//     })
-//     .then((triviaData) => {
-//         console.log(triviaData);
-//     })
-
-
-
-
-// namespace object
 const triviaApp = {};
 
-
-// saved variables / selectors?
+// SELECTORS / VARIABLES
 triviaApp.startButton = document.getElementById('startButton');
 triviaApp.triviaCard = document.querySelector('div.welcomePage');
 
+
 triviaApp.baseUrl = 'https://opentdb.com/api.php';
-
 triviaApp.allQuestions = [];
-
 triviaApp.questionCounter = 0;
-
 triviaApp.scoreCounter = 0;
 
 // init function definition
@@ -30,163 +15,80 @@ triviaApp.init = () => {
     triviaApp.startGame();
 }
 
-
-    // event listener that listens to user clicking 'start game' -> clears the welcome screen off the page and runs a startGameFunction
-
+// Add an event listener that will take the user's selected difficulty, and then run the getQuestions function when clicking 'Start Game':
 triviaApp.startGame = () => {
     triviaApp.startButton.addEventListener('click', function() {
         const chosenDifficulty = document.querySelector('input[name="select"]:checked').value;
-        console.log(chosenDifficulty);
+        triviaApp.username = document.querySelector('input[id="name"]').value;
 
-        // make the API call
         triviaApp.getQuestions(chosenDifficulty);
-
-        // clear out card html so theres room to load the questions
-        // triviaApp.triviaCard.innerHTML = '';
-
     })
 }
 
-triviaApp.getQuestions = (chosenDifficulty) => {
-    // create new url object
-    const url = new URL(triviaApp.baseUrl);
 
-    // add search paramters:
+// Make an AJAX call to retrieve an array of questions from the API, then run the loadQuestion function:
+triviaApp.getQuestions = (chosenDifficulty) => {
+    const url = new URL(triviaApp.baseUrl);
     url.search = new URLSearchParams({
         amount: 10,
-        difficulty: chosenDifficulty
+        difficulty: chosenDifficulty,
     })
 
     // make API call with url:
-
     fetch(url)
         .then((response) => {
             return response.json();
+            // ! add error handling
         })
         .then((triviaData) => {
-            triviaApp.allQuestions = triviaData.results; // store questions array in namespace object
-            // call a function to load a question 
+            triviaApp.allQuestions = triviaData.results; 
+
             triviaApp.loadQuestion(0);
         });
-
 }
 
-// // loadQuestion should go into a single question object, and take the question, wrong answers array, and right answer array and store them locally.
-// //We should create a third array of allAnswerOptions, which would combine the right and wrong anwers.
-// we need a helper function that will randomize the order of the allAnswersOptions
-// Once the answers are randomized we build out the html of the question
-// add the question to a h2 or something, and the possible answers each to a radio input (?), and add a submit button
-// add an event listener to the submit button that will call a checkAnswerFunction
 
+// First check if the user has completed X number of questions - if not, load a question. If they have reached the limit, end the game:
 
 triviaApp.loadQuestion = (indexNumber) => {
 
-    if ( triviaApp.questionCounter <= 3) {
-        const question = triviaApp.allQuestions[indexNumber].question;
+    if ( triviaApp.questionCounter <= 4) {
+        // Get all the necessary data for the question from the allQuestions array:
+        const question = triviaApp.decode(triviaApp.allQuestions[indexNumber].question)  ;
         const wrongAnswers = triviaApp.allQuestions[indexNumber].incorrect_answers;
         const rightAnswer = triviaApp.allQuestions[indexNumber].correct_answer;
-        // create a new array that will hold all the answers, adding the wrong answers:
+        
+
+        //Create a new array that will hold all the answers, adding the wrong answers:
         const allAnswers = wrongAnswers.map((answer) => {
             return answer;
         })
         // push the correct answer to the array allAnswers
         allAnswers.push(rightAnswer);
-
-        // RANDOMIZE THE ARRAY OF ANSWERS - DEAL WITH LATER
+        // remove html encoding
+        allAnswers.forEach((answer) => {
+            return triviaApp.decode(answer);
+        })
+        // Randomly shuffle the order of the allAnswers array:
         triviaApp.shuffle(allAnswers);
 
-        // ADD stuff to the DOM
+        // Build the question & answers and put it on the page:
+        triviaApp.buildQuestion(question, allAnswers);
 
-        if (allAnswers.length === 4) {
-
-        triviaApp.triviaCard.innerHTML = `
-            <h2 id="question">${question}</h2>
-    
-            <form action="">
-                <input type="radio" name="triviaAnswer" value="${allAnswers[0]}" id="option1" class="sr-only" >
-                <label for="option1" class="answer">${allAnswers[0]}</label>
-        
-                <input type="radio" name="triviaAnswer" value="${allAnswers[1]}" id="option2" class="sr-only" >
-                <label for="option2" class="answer">${allAnswers[1]}</label>
-                
-                <input type="radio" name="triviaAnswer" value="${allAnswers[2]}" id="option3" class="sr-only" >
-                <label for="option3" class="answer">${allAnswers[2]}</label>
-        
-                <input type="radio" name="triviaAnswer" value="${allAnswers[3]}" id="option4" class="sr-only" >
-                <label for="option4" class="answer">${allAnswers[3]}</label>
-        
-            </form>
-
-            <button class="submitAnswer" id="submitAnswer">Submit!</button>
-
-            <div id="areYouRight"></div>
-        `;
-
-        } else if (allAnswers.length === 2) {
-
-            triviaApp.triviaCard.innerHTML = `
-            <h2 id="question">${question}</h2>
-    
-            <form action="">
-
-                <input type="radio" name="triviaAnswer" value="${allAnswers[0]}" id="option1" class="sr-only" >
-                <label for="option1" class="answer">${allAnswers[0]}</label>
-        
-                <input type="radio" name="triviaAnswer" value="${allAnswers[1]}" id="option2" class="sr-only" >
-                <label for="option2" class="answer">${allAnswers[1]}</label>
-        
-            </form>
-
-            <button class="submitAnswer" id="submitAnswer">Submit!</button>
-            
-            <div id="areYouRight"></div>
-        `;
-        }
+        // An event listener that waits for the submit button to be clicked then runs the checkAnswer function:
         const submitButton = document.getElementById('submitAnswer');
-        submitButton.addEventListener('click', function () {
-            const userAnswer = document.querySelector('input[name="triviaAnswer"]:checked');
-            const computerReply = document.getElementById('areYouRight');
-            const nextQuestion = document.createElement('button')
-            nextQuestion.innerHTML = 'Next Question';
-            console.log(userAnswer);
-            if (userAnswer.value === rightAnswer){
-                computerReply.innerText =`you are right ${rightAnswer}`;
-                computerReply.classList.add('banana');
-                triviaApp.scoreCounter++;
-
-            }else{
-                computerReply.innerText = `you are wrong, the right answer was ${rightAnswer}`;
-                console.log("you are wrong");
-            }
-
-            triviaApp.questionCounter++;
-
-            computerReply.append(nextQuestion);
-
-            nextQuestion.addEventListener('click', function(){
-                triviaApp.loadQuestion(triviaApp.questionCounter);
-            })
+        submitButton.addEventListener('click', function() {
+            triviaApp.checkAnswer(rightAnswer, submitButton);
         });
 
-
-        // const nextQuestion = document.createElement('button')
-        // nextQuestion.addEventListener('click')
-        // nextQuestion.innerHTML = 'Next Question';
-
-
+        
+        // If the user has gone through all the question, run endOfGame:
     } else { 
-        // end the game, print score, etc..
-        alert('game over');
+        triviaApp.endOfGame();
     }
-
-    
-
-
-    // when the submit button is pressed i++, loadQuestion(i)
 }
 
-
-// RANDOMIZER Helper function to shuffle the order of the all answers array:
+// Randomizer helper function to shuffle the order of the all answers array:
 // Solution found from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 
 triviaApp.shuffle = (array) => {
@@ -207,27 +109,118 @@ triviaApp.shuffle = (array) => {
     return array;
 }
 
+// Helper function to decode the html encoding that are present on some questions/answers. Solution found here: https://tertiumnon.medium.com/js-how-to-decode-html-entities-8ea807a140e5
+triviaApp.decode = (text) => {
+    const textArea = document.createElement('textarea');
+    textArea.innerHTML = text;
+    return textArea.value;
+}
+
+triviaApp.buildQuestion = (question, arrayOfAnswers) => {
+    triviaApp.triviaCard.innerHTML = '';
+
+    const newQuestion = document.createElement('h2');
+    newQuestion.innerText = question;
+
+    const newForm = document.createElement('form');
+
+    const submit = document.createElement('button');
+    submit.innerText = 'Submit Answer';
+    submit.classList.add('submitAnswer');
+    submit.setAttribute('id', 'submitAnswer');
+
+    arrayOfAnswers.forEach((answer, i) => {
+        const newInput = document.createElement('input');
+        newInput.classList.add('sr-only');
+        newInput.setAttribute('type', 'radio');
+        newInput.setAttribute('id', `option${i}`);
+        newInput.setAttribute('value', answer);
+        newInput.setAttribute('name', 'triviaAnswer');
+
+        const newLabel = document.createElement('label');
+        newLabel.classList.add('answer');
+        newLabel.setAttribute('for', `option${i}`);
+        newLabel.innerText = answer;
+
+        newForm.append(newInput, newLabel);
+    })
+
+    triviaApp.triviaCard.append(newQuestion, newForm, submit);
+
+}
+
+triviaApp.checkAnswer = (rightAnswer, submitButton) => {
+    const userAnswer = document.querySelector('input[name="triviaAnswer"]:checked');
+    const userAnswerLabel = document.querySelector('input[name="triviaAnswer"]:checked + label');
+
+    const computerReply = document.createElement('p');
+    computerReply.setAttribute('id', 'computerReply');
+
+    
+    // check if the user has selected an answer when they submit:
+    if (!userAnswer) {
+        computerReply.innerText = 'Please choose an answer!';
+        triviaApp.triviaCard.append(computerReply);
+        setTimeout(function(){
+            computerReply.remove();
+        }, 1500);
+
+    } else if (userAnswer.value) {
+    const nextQuestion = document.createElement('button')
+    nextQuestion.innerHTML = 'Next Question';
+
+    if (userAnswer.value === rightAnswer){
+        computerReply.textContent = '';
+        computerReply.innerText =`Great! ${rightAnswer} is correct!`;
+        computerReply.classList.add('banana');
+        triviaApp.scoreCounter++;
+        
+        // allAnswerLabels.style.background = 'red';
+        userAnswerLabel.style.background = 'green';
+
+    }else{
+        computerReply.innerText = '';
+        computerReply.innerText = `Nope! The right answer was ${rightAnswer}`;
+
+        // allAnswerLabels.style.background = 'red';
+        userAnswerLabel.style.background = 'red';
+    }
+
+    triviaApp.questionCounter++;
+
+    setTimeout(function(){
+        computerReply.append(nextQuestion);
+    }, 1000)
+    
+    triviaApp.triviaCard.append(computerReply);
+
+    submitButton.remove();
+
+    nextQuestion.addEventListener('click', function(){
+        triviaApp.loadQuestion(triviaApp.questionCounter);
+    })
+}
+}
+
+triviaApp.endOfGame = () => {
+            // end the game, print score, etc..
+            triviaApp.triviaCard.innerHTML = `
+            <h2>Great job, <span id="userName"></span></h2>
+            <h3>You scored ${triviaApp.scoreCounter} out of ${triviaApp.questionCounter}</h3>
+            <button id="retry"> Try again </button>
+            `;
+            document.getElementById('userName').innerText = triviaApp.username;
+    
+            const retryButton = document.getElementById('retry');
+            retryButton.addEventListener('click', function() {
+                triviaApp.scoreCounter = 0;
+                triviaApp.questionCounter = 0;
+                console.log('Clicked retry!');
+                document.location.reload();
+            })
+}
 
 
-
-
-// function shuffle(array) {
-//     let currentIndex = array.length,  randomIndex;
-  
-//     // While there remain elements to shuffle.
-//     while (currentIndex != 0) {
-  
-//       // Pick a remaining element.
-//       randomIndex = Math.floor(Math.random() * currentIndex);
-//       currentIndex--;
-  
-//       // And swap it with the current element.
-//       [array[currentIndex], array[randomIndex]] = [
-//         array[randomIndex], array[currentIndex]];
-//     }
-  
-//     return array;
-//   }
 
 
 
