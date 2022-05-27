@@ -242,12 +242,12 @@ section {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 50px 0 100px 0;
+  padding: 50px 0 150px 0;
 }
 .welcomePage p {
   display: block;
   width: 70%;
-  margin-bottom: 0;
+  margin-bottom: 20px;
   margin-top: 5px;
   font-size: 1.3rem;
 }
@@ -301,6 +301,7 @@ form label.difficulty, form label.answer {
   font-size: 1.4rem;
   color: white;
   position: relative;
+  cursor: pointer;
 }
 
 .banana {

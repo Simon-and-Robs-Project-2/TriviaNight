@@ -37,13 +37,21 @@ triviaApp.getQuestions = (difficulty) => {
     // make API call with url:
     fetch(url)
         .then((response) => {
-            return response.json();
-            // ! add error handling
+            if (response.ok) {
+                return response.json();
+            } else {
+                // console.log('Error!!');
+                // throw new Error('THROWN error')
+            }
         })
         .then((triviaData) => {
             triviaApp.allQuestions = triviaData.results; 
 
             triviaApp.loadQuestion(0);
+        })
+        .catch((error) => {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.innerText = 'There was an  issue with the API, please try again!' + error;
         });
 }
 
