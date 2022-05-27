@@ -27,11 +27,11 @@ triviaApp.startGame = () => {
 
 
 // Make an AJAX call to retrieve an array of questions from the API, then run the loadQuestion function:
-triviaApp.getQuestions = (chosenDifficulty) => {
+triviaApp.getQuestions = (difficulty) => {
     const url = new URL(triviaApp.baseUrl);
     url.search = new URLSearchParams({
         amount: 10,
-        difficulty: chosenDifficulty,
+        difficulty: difficulty,
     })
 
     // make API call with url:
@@ -125,8 +125,12 @@ triviaApp.buildQuestion = (question, arrayOfAnswers) => {
     const newForm = document.createElement('form');
 
     const submit = document.createElement('button');
-    submit.innerText = 'Submit Answer';
-    submit.classList.add('submitAnswer');
+    const submitSpan = document.createElement('span');
+    submitSpan.innerText = 'Submit!';
+    submitSpan.classList.add('button_top');
+    submit.append(submitSpan);
+    // submit.innerText = 'Submit Answer';
+    // submit.classList.add('submitAnswer');
     submit.setAttribute('id', 'submitAnswer');
 
     arrayOfAnswers.forEach((answer, i) => {
@@ -168,6 +172,7 @@ triviaApp.checkAnswer = (rightAnswer, submitButton) => {
     } else if (userAnswer.value) {
     const nextQuestion = document.createElement('button')
     nextQuestion.innerHTML = 'Next Question';
+
 
     if (userAnswer.value === rightAnswer){
         computerReply.textContent = '';

@@ -8,7 +8,7 @@ header {
 
     .neon {
         text-transform: uppercase;
-        font-family: 'Montserrat', Arial, sans-serif;
+        font-family: $secondaryFont;
             font-size: 3rem;
             font-weight: 700;
             color: #fff;
@@ -51,11 +51,13 @@ section {
         bottom: -75px;
         width: 150px;
         height: 150px;
-        border-radius: 50%;
+        border-radius: 45px;
         margin: 0 auto;
         border: none;
         color: white;
         background: $accentTwo;
+        font-family: $secondaryFont;
+        font-size: 1.4rem;
     }
 }
 
@@ -83,13 +85,67 @@ form {
     label {
         &.difficulty,
         &.answer {
-            border: 1px solid $accentTwo;
+            border: 2px solid $accentOne;
+            border-radius: 15px;
             padding: 20px;
             margin: 5px 0;
+            font-family: $secondaryFont;
+            font-size: 1.4rem;
         }   
     }
 }
 
 .banana{
     background-color: green;
+}
+
+
+// next question button styles
+
+button {
+    /* Variables */
+    --button_radius: 0.75em;
+    --button_color: #e8e8e8;
+    --button_outline_color: #000000;
+    position: absolute;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: $secondaryFont;
+    border: none;
+    border-radius: var(--button_radius);
+    background: var(--button_outline_color);
+    padding: 1px;
+    bottom: 15px;
+}
+
+.button_top {
+    display: block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 2px solid var(--button_outline_color);
+    border-radius: var(--button_radius);
+    padding: 0.75em 1.5em;
+    background: var(--button_color);
+    color: var(--button_outline_color);
+    -webkit-transform: translateY(-0.2em);
+    -ms-transform: translateY(-0.2em);
+    transform: translateY(-0.2em);
+    -webkit-transition: -webkit-transform 0.1s ease;
+    transition: -webkit-transform 0.1s ease;
+    transition: transform 0.1s ease;
+    transition: transform 0.1s ease, -webkit-transform 0.1s ease;
+}
+
+button:hover .button_top {
+    /* Pull the button upwards when hovered */
+    -webkit-transform: translateY(-0.33em);
+    -ms-transform: translateY(-0.33em);
+    transform: translateY(-0.33em);
+}
+
+button:active .button_top {
+    /* Push the button downwards when pressed */
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
 }
