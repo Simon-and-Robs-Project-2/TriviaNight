@@ -52,7 +52,7 @@ triviaApp.getQuestions = (difficulty) => {
 
 triviaApp.loadQuestion = (indexNumber) => {
 
-    if ( triviaApp.questionCounter <= 4) {
+    if ( triviaApp.questionCounter <= 1) {
         // Get all the necessary data for the question from the allQuestions array:
         const question = triviaApp.decode(triviaApp.allQuestions[indexNumber].question)  ;
         const wrongAnswers = triviaApp.allQuestions[indexNumber].incorrect_answers;
@@ -129,8 +129,6 @@ triviaApp.buildQuestion = (question, arrayOfAnswers) => {
     submitSpan.innerText = 'Submit!';
     submitSpan.classList.add('button_top');
     submit.append(submitSpan);
-    // submit.innerText = 'Submit Answer';
-    // submit.classList.add('submitAnswer');
     submit.setAttribute('id', 'submitAnswer');
 
     arrayOfAnswers.forEach((answer, i) => {
@@ -156,11 +154,20 @@ triviaApp.buildQuestion = (question, arrayOfAnswers) => {
 triviaApp.checkAnswer = (rightAnswer, submitButton) => {
     const userAnswer = document.querySelector('input[name="triviaAnswer"]:checked');
     const userAnswerLabel = document.querySelector('input[name="triviaAnswer"]:checked + label');
-
+    const questionForm = document.querySelector('form');
+    
+    // Response for an incorrect answer or an empty answer:
     const computerReply = document.createElement('p');
-    computerReply.setAttribute('id', 'computerReply');
+ 
+
+
+    // Response for a correct answer:
+    const computerReplyCorrect = document.createElement('div');
+    computerReplyCorrect.setAttribute('id', 'computerReply');
+    computerReplyCorrect.classList.add('congrats'); // ! TESTING
 
     
+
     // check if the user has selected an answer when they submit:
     if (!userAnswer) {
         computerReply.innerText = 'Please choose an answer!';
@@ -170,22 +177,28 @@ triviaApp.checkAnswer = (rightAnswer, submitButton) => {
         }, 1500);
 
     } else if (userAnswer.value) {
-    const nextQuestion = document.createElement('button')
-    nextQuestion.innerHTML = 'Next Question';
+    // Create the next question button:
+    const nextQuestion = document.createElement('button');
+    const nextSpan = document.createElement('span');
+    nextSpan.innerText = 'Next Question!';
+    nextSpan.classList.add('button_top');
+    nextQuestion.append(nextSpan);
 
 
-    if (userAnswer.value === rightAnswer){
+
+    if (userAnswer.value === rightAnswer) {
         computerReply.textContent = '';
-        computerReply.innerText =`Great! ${rightAnswer} is correct!`;
-        computerReply.classList.add('banana');
         triviaApp.scoreCounter++;
         
-        // allAnswerLabels.style.background = 'red';
         userAnswerLabel.style.background = 'green';
 
-    }else{
+        // gif shows up overtop label:
+        userAnswerLabel.append(computerReplyCorrect);
+    } else {
         computerReply.innerText = '';
-        computerReply.innerText = `Nope! The right answer was ${rightAnswer}`;
+        computerReply.innerText = `😢 Nope! The right answer was ${rightAnswer}`;
+
+        triviaApp.triviaCard.append(computerReply);
 
         // allAnswerLabels.style.background = 'red';
         userAnswerLabel.style.background = 'red';
@@ -194,10 +207,9 @@ triviaApp.checkAnswer = (rightAnswer, submitButton) => {
     triviaApp.questionCounter++;
 
     setTimeout(function(){
-        computerReply.append(nextQuestion);
+        triviaApp.triviaCard.append(nextQuestion);
     }, 1000)
-    
-    triviaApp.triviaCard.append(computerReply);
+
 
     submitButton.remove();
 
@@ -212,7 +224,7 @@ triviaApp.endOfGame = () => {
             triviaApp.triviaCard.innerHTML = `
             <h2>Great job, <span id="userName"></span></h2>
             <h3>You scored ${triviaApp.scoreCounter} out of ${triviaApp.questionCounter}</h3>
-            <button id="retry"> Try again </button>
+            <button id="retry"><span class="button_top">Try again!</span></button>
             `;
             document.getElementById('userName').innerText = triviaApp.username;
     
