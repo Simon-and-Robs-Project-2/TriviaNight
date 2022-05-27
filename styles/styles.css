@@ -181,7 +181,7 @@ html {
   font-size: 125%;
 }
 
-wrapper {
+.wrapper {
   max-width: 1200px;
   width: 90%;
   margin: 0 auto;
@@ -212,12 +212,11 @@ header .neon {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  white-space: nowrap;
   -webkit-filter: blur(0.007em);
           filter: blur(0.007em);
 }
 
-section:first-child {
+section {
   text-align: center;
   border: 3px solid black;
   width: 50%;
@@ -291,4 +290,20 @@ form label.difficulty, form label.answer {
 
 .banana {
   background-color: green;
+}
+
+@media (max-width: 1000px) {
+  section {
+    width: 70%;
+  }
+}
+@media (max-width: 900px) {
+  section {
+    width: 70%;
+  }
+}
+@media (max-width: 700px) {
+  section {
+    width: 70%;
+  }
 }

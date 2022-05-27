@@ -16,12 +16,11 @@ header {
             text-transform: uppercase;
             text-shadow: 0 0 0.95em #1da9cc;
             user-select: none;
-            white-space: nowrap;
             filter: blur(0.007em);
     }
 }
 
-section:first-child {
+section {
     text-align: center;
     border: 3px solid black;
     width: 50%;
