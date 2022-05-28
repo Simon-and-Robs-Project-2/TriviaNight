@@ -195,6 +195,10 @@ h1 {
 body {
   background: #1C0C5B;
 }
+body h2 {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
 
 header {
   color: white;
@@ -219,11 +223,9 @@ header .neon {
 
 section {
   text-align: center;
-  border: 3px solid black;
   width: 50%;
   margin: 0 auto;
   border-radius: 45px;
-  max-height: 100vh;
   background-color: papayawhip;
 }
 
@@ -242,14 +244,21 @@ section {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 50px 0 150px 0;
+  padding: 50px 0 125px 0;
 }
 .welcomePage p {
+  font-family: "Abel", sans-serif;
   display: block;
   width: 70%;
   margin-bottom: 20px;
   margin-top: 5px;
   font-size: 1.3rem;
+}
+.welcomePage p.errorMessage {
+  font-size: 1rem;
+  font-style: italic;
+  color: red;
+  margin: 0;
 }
 .welcomePage .startGame {
   display: block;
@@ -261,13 +270,21 @@ section {
   margin: 0 auto;
   border: none;
   color: white;
-  background: #E2703A;
+  background: #EC994B;
   font-family: "Abel", sans-serif;
   font-size: 1.4rem;
-  -webkit-transition: -webkit-transform 1s;
-  transition: -webkit-transform 1s;
-  transition: transform 1s;
-  transition: transform 1s, -webkit-transform 1s;
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
+}
+.welcomePage .startGame:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+.welcomePage .startGame.shrink {
+  -webkit-transform: scale(0) rotate(360deg);
+          transform: scale(0) rotate(360deg);
 }
 
 form {
@@ -279,20 +296,43 @@ form {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 70%;
+  width: 90%;
+}
+form .categorySelect,
+form input[type=text],
+form .difficulty,
+form .answer {
+  border: none;
+  border-radius: 15px;
+  padding: 15px;
+}
+form .categorySelect {
+  background: white;
+  font-family: "Abel", sans-serif;
+  font-size: 1.4rem;
+  text-align: center;
+  padding: 20px;
+  border: none;
+  border-radius: 15px;
+}
+form .categorySelect option {
+  font-family: "Abel", sans-serif;
+  font-size: 1rem;
 }
 form input[type=text] {
-  border: none;
-  padding: 20px;
+  font-family: "Abel", sans-serif;
+  font-size: 1.4rem;
+  text-align: center;
 }
 form input[type=radio] {
   opacity: 0.01;
   position: absolute;
 }
 form input[type=radio]:checked + label {
-  background: #9C3D54;
+  background: #EC994B;
 }
-form label.difficulty, form label.answer {
+form label.difficulty,
+form label.answer {
   background-color: #916BBF;
   border-radius: 15px;
   padding: 20px;
@@ -302,17 +342,20 @@ form label.difficulty, form label.answer {
   color: white;
   position: relative;
   cursor: pointer;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
 }
-
-.banana {
-  background-color: green;
+form label.difficulty:hover, form label.difficulty:focus,
+form label.answer:hover,
+form label.answer:focus {
+  background-color: #3D2C8D;
 }
 
 button {
   /* Variables */
   --button_radius: 0.75em;
-  --button_color: #e8e8e8;
-  --button_outline_color: #000000;
+  --button_color: #FFFFFF;
+  --button_outline_color: #1C0C5B;
   position: absolute;
   font-size: 1.1rem;
   font-weight: bold;
@@ -361,11 +404,13 @@ button:active .button_top {
   position: relative;
 }
 .input-group .input {
+  width: 90%;
   border: solid 1.5px #9e9e9e;
-  border-radius: 1rem;
+  border-radius: 15px;
   background: none;
   padding: 1rem;
   font-size: 1rem;
+  background-color: white;
   color: #f5f5f5;
   -webkit-transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
   transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -385,9 +430,9 @@ button:active .button_top {
   border: 1.5px solid #1a73e8;
 }
 .input-group .input:focus ~ label, .input-group input:valid ~ label {
-  -webkit-transform: translateY(-50%) scale(0.8);
-          transform: translateY(-50%) scale(0.8);
-  background-color: papayawhip;
+  -webkit-transform: translateY(-90%) scale(0.8);
+          transform: translateY(-90%) scale(0.8);
+  background: none;
   padding: 0 0.2em;
   color: #2196f3;
 }
