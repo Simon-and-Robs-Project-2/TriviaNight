@@ -194,6 +194,7 @@ h1 {
 
 body {
   background: #1C0C5B;
+  color: #5c5c5c;
 }
 body h2 {
   font-size: 1.2rem;
@@ -307,6 +308,7 @@ form .answer {
   padding: 15px;
 }
 form .categorySelect {
+  color: #5c5c5c;
   background: white;
   font-family: "Abel", sans-serif;
   font-size: 1.4rem;

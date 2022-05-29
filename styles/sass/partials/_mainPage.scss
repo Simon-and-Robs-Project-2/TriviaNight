@@ -1,5 +1,6 @@
 body {
     background: $bodyBackground;
+    color: #5c5c5c;
 
     h2 {
         font-size: 1.2rem;
@@ -104,6 +105,7 @@ form {
     }
 
     .categorySelect {
+        color: #5c5c5c;
         background: white;
         font-family: $secondaryFont;
         font-size: 1.4rem;

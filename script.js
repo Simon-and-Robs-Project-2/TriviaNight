@@ -67,7 +67,7 @@ triviaApp.getQuestions = (difficulty, topic) => {
 
 triviaApp.loadQuestion = (indexNumber) => {
 
-    if ( triviaApp.questionCounter <= 4) {
+    if ( triviaApp.questionCounter <= 9) {
         // Get all the necessary data for the question from the allQuestions array:
         const question = triviaApp.decode(triviaApp.allQuestions[indexNumber].question)  ;
         const wrongAnswers = triviaApp.allQuestions[indexNumber].incorrect_answers;
@@ -82,7 +82,8 @@ triviaApp.loadQuestion = (indexNumber) => {
         allAnswers.push(rightAnswer);
         // remove html encoding
         allAnswers.forEach((answer) => {
-            return triviaApp.decode(answer);
+            const decodedAnswers =  triviaApp.decode(answer);
+            // ! return triviaApp.removeCharacters(decodedAnswers);
         })
         // Randomly shuffle the order of the allAnswers array:
         triviaApp.shuffle(allAnswers);
@@ -179,9 +180,9 @@ triviaApp.checkAnswer = (rightAnswer, submitButton) => {
     if (!userAnswer) {
         computerReply.innerText = 'Please choose an answer!';
         triviaApp.triviaCard.append(computerReply);
-        // setTimeout(function(){
-        //     computerReply.remove();
-        // }, 1500);
+        setTimeout(function(){
+            computerReply.remove();
+        }, 1500);
 
     } else if (userAnswer.value) {
     // Create the next question button:
@@ -194,7 +195,7 @@ triviaApp.checkAnswer = (rightAnswer, submitButton) => {
     // Response for a correct answer:
     const computerReplyCorrect = document.createElement('div');
     computerReplyCorrect.setAttribute('id', 'computerReply');
-    computerReplyCorrect.classList.add('congrats'); // ! TESTING
+    computerReplyCorrect.classList.add('congrats');
 
 
 
@@ -260,7 +261,10 @@ triviaApp.endOfGame = () => {
     })
 }
 
-
+// ! triviaApp.removeCharacters = (string) => {
+//     string = string.replace(/[&\/\\#,+()$~%.'":*<>{}]/g, '');
+//     return string;
+// }
 
 
 
