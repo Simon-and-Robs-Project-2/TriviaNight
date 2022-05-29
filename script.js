@@ -19,19 +19,26 @@ triviaApp.init = () => {
 triviaApp.startGame = () => {
     triviaApp.startButton.addEventListener('click', function() {
         const chosenDifficulty = document.querySelector('input[name="select"]:checked').value;
+        const chosenCategory = document.getElementById('categorySelect').value;
         triviaApp.username = document.querySelector('input[id="name"]').value;
 
-        triviaApp.getQuestions(chosenDifficulty);
+        triviaApp.startButton.classList.add('shrink');
+
+        setTimeout(function() {
+            triviaApp.getQuestions(chosenDifficulty, chosenCategory)
+        }, 500);
+        
     })
 }
 
 
 // Make an AJAX call to retrieve an array of questions from the API, then run the loadQuestion function:
-triviaApp.getQuestions = (difficulty) => {
+triviaApp.getQuestions = (difficulty, topic) => {
     const url = new URL(triviaApp.baseUrl);
     url.search = new URLSearchParams({
         amount: 10,
         difficulty: difficulty,
+        category: topic
     })
 
     // make API call with url:
@@ -60,7 +67,7 @@ triviaApp.getQuestions = (difficulty) => {
 
 triviaApp.loadQuestion = (indexNumber) => {
 
-    if ( triviaApp.questionCounter <= 1) {
+    if ( triviaApp.questionCounter <= 9) {
         // Get all the necessary data for the question from the allQuestions array:
         const question = triviaApp.decode(triviaApp.allQuestions[indexNumber].question)  ;
         const wrongAnswers = triviaApp.allQuestions[indexNumber].incorrect_answers;
@@ -75,7 +82,8 @@ triviaApp.loadQuestion = (indexNumber) => {
         allAnswers.push(rightAnswer);
         // remove html encoding
         allAnswers.forEach((answer) => {
-            return triviaApp.decode(answer);
+            const decodedAnswers =  triviaApp.decode(answer);
+            // ! return triviaApp.removeCharacters(decodedAnswers);
         })
         // Randomly shuffle the order of the allAnswers array:
         triviaApp.shuffle(allAnswers);
@@ -168,14 +176,6 @@ triviaApp.checkAnswer = (rightAnswer, submitButton) => {
     const computerReply = document.createElement('p');
  
 
-
-    // Response for a correct answer:
-    const computerReplyCorrect = document.createElement('div');
-    computerReplyCorrect.setAttribute('id', 'computerReply');
-    computerReplyCorrect.classList.add('congrats'); // ! TESTING
-
-    
-
     // check if the user has selected an answer when they submit:
     if (!userAnswer) {
         computerReply.innerText = 'Please choose an answer!';
@@ -192,13 +192,18 @@ triviaApp.checkAnswer = (rightAnswer, submitButton) => {
     nextSpan.classList.add('button_top');
     nextQuestion.append(nextSpan);
 
+    // Response for a correct answer:
+    const computerReplyCorrect = document.createElement('div');
+    computerReplyCorrect.setAttribute('id', 'computerReply');
+    computerReplyCorrect.classList.add('congrats');
+
 
 
     if (userAnswer.value === rightAnswer) {
         computerReply.textContent = '';
         triviaApp.scoreCounter++;
         
-        userAnswerLabel.style.background = 'green';
+        userAnswerLabel.style.background = '#83BD75';
 
         // gif shows up overtop label:
         userAnswerLabel.append(computerReplyCorrect);
@@ -209,7 +214,7 @@ triviaApp.checkAnswer = (rightAnswer, submitButton) => {
         triviaApp.triviaCard.append(computerReply);
 
         // allAnswerLabels.style.background = 'red';
-        userAnswerLabel.style.background = 'red';
+        userAnswerLabel.style.background = '#DF6A6A';
     }
 
     triviaApp.questionCounter++;
@@ -228,24 +233,38 @@ triviaApp.checkAnswer = (rightAnswer, submitButton) => {
 }
 
 triviaApp.endOfGame = () => {
-            // end the game, print score, etc..
-            triviaApp.triviaCard.innerHTML = `
-            <h2>Great job, <span id="userName"></span></h2>
-            <h3>You scored ${triviaApp.scoreCounter} out of ${triviaApp.questionCounter}</h3>
-            <button id="retry"><span class="button_top">Try again!</span></button>
-            `;
-            document.getElementById('userName').innerText = triviaApp.username;
     
-            const retryButton = document.getElementById('retry');
-            retryButton.addEventListener('click', function() {
-                triviaApp.scoreCounter = 0;
-                triviaApp.questionCounter = 0;
-                console.log('Clicked retry!');
-                document.location.reload();
-            })
+    let endGameMessage;
+
+    if ((triviaApp.scoreCounter / triviaApp.questionCounter) >= 0.8) {
+        endGameMessage = '🥳  Great job, ';
+    } else if ((triviaApp.scoreCounter / triviaApp.questionCounter) >= 0.5) {
+        endGameMessage = '🙌  Well done, '
+    } else if ((triviaApp.scoreCounter / triviaApp.questionCounter) < 0.5) {
+        endGameMessage = '🤡 Pretty good,'
+    }
+
+
+
+    triviaApp.triviaCard.innerHTML = `
+    <h2>${endGameMessage} <span id="userName"></span></h2>
+    <h3>You scored ${triviaApp.scoreCounter} out of ${triviaApp.questionCounter}</h3>
+    <button id="retry"><span class="button_top">Try again!</span></button>
+    `;
+    document.getElementById('userName').innerText = triviaApp.username;
+
+    const retryButton = document.getElementById('retry');
+    retryButton.addEventListener('click', function() {
+        triviaApp.scoreCounter = 0;
+        triviaApp.questionCounter = 0;
+        document.location.reload();
+    })
 }
 
-
+// ! triviaApp.removeCharacters = (string) => {
+//     string = string.replace(/[&\/\\#,+()$~%.'":*<>{}]/g, '');
+//     return string;
+// }
 
 
 

@@ -1,5 +1,11 @@
 body {
     background: $bodyBackground;
+    color: #5c5c5c;
+
+    h2 {
+        font-size: 1.2rem;
+        line-height: 1.5rem;
+    }
 }
 
 header {
@@ -22,11 +28,11 @@ header {
 
 section {
     text-align: center;
-    border: 3px solid black;
+    // border: 3px solid black;
     width: 50%;
     margin: 0 auto;
     border-radius: 45px;
-    max-height: 100vh;
+    // max-height: 100vh;
     background-color: $cardBackground;
 }
 
@@ -38,14 +44,22 @@ section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 50px 0 150px 0;
+    padding: 50px 0 125px 0;
 
     p {
+        font-family: $secondaryFont;
         display: block;
         width: 70%;
         margin-bottom: 20px;
         margin-top: 5px;
         font-size: 1.3rem;
+
+        &.errorMessage {
+            font-size: 1rem;
+            font-style: italic;
+            color: red;
+            margin: 0;
+        }
     }
 
     .startGame {
@@ -61,7 +75,16 @@ section {
         background: $accentTwo;
         font-family: $secondaryFont;
         font-size: 1.4rem;
-        transition: transform 1s;
+        transition: transform .5s;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        &.shrink {
+            transform: scale(0) rotate(360deg);
+            
+        }
     }
 }
 
@@ -70,11 +93,37 @@ form {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 90%;
+
+    .categorySelect,
+    input[type="text"],
+    .difficulty,
+    .answer {
+        border:none;
+        border-radius: 15px;
+        padding: 15px;
+    }
+
+    .categorySelect {
+        color: #5c5c5c;
+        background: white;
+        font-family: $secondaryFont;
+        font-size: 1.4rem;
+        text-align: center;
+        padding: 20px;
+        border: none;
+        border-radius: 15px;
+
+        option {
+            font-family: $secondaryFont;
+            font-size: 1rem;
+        }
+    }
 
     input[type="text"] {
-        border: none;
-        padding: 20px;
+        font-family: $secondaryFont;
+        font-size: 1.4rem;
+        text-align: center;
     }
 
     input[type="radio"] {
@@ -82,13 +131,13 @@ form {
         position: absolute;
 
         &:checked + label {
-            background: #9C3D54;
+            background: $accentTwo;
         }
     }
 
-    label {
-        &.difficulty,
-        &.answer {
+
+    label.difficulty,
+    label.answer {
             background-color: $accentOne;
             border-radius: 15px;
             padding: 20px;
@@ -98,13 +147,14 @@ form {
             color: white;
             position:relative;
             cursor: pointer;
+            transition: background-color .3s;
+
+            &:hover,
+            &:focus {
+                background-color: $secondaryColor;
+            }
         }   
     }
-}
-
-.banana{
-    background-color: green;
-}
 
 
 // next question button styles
@@ -112,8 +162,8 @@ form {
 button {
     /* Variables */
     --button_radius: 0.75em;
-    --button_color: #e8e8e8;
-    --button_outline_color: #000000;
+    --button_color: #FFFFFF;
+    --button_outline_color: #1C0C5B;
     position: absolute;
     font-size: 1.1rem;
     font-weight: bold;
@@ -169,11 +219,13 @@ button:active .button_top {
     position: relative;
 
     .input {
+        width: 90%;
         border: solid 1.5px #9e9e9e;
-        border-radius: 1rem;
+        border-radius: 15px;
         background: none;
         padding: 1rem;
         font-size: 1rem;
+        background-color: white;
         color: #f5f5f5;
         transition: border 150ms cubic-bezier(0.4,0,0.2,1);
     }
@@ -193,8 +245,8 @@ button:active .button_top {
     }
        
        .input:focus ~ label, input:valid ~ label {
-        transform: translateY(-50%) scale(0.8);
-        background-color: $cardBackground;
+        transform: translateY(-90%) scale(0.8);
+        background: none;
         padding: 0 .2em;
         color: #2196f3;
     }

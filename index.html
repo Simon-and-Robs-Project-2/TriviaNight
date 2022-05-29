@@ -13,48 +13,66 @@
         <h1 class="neon">Welcome to Trivia Night!</h1>
     </header>
 
-<main>
+    <main>
 
 
-    <section>
-        <div class="wrapper">
+        <section>
+            <div class="wrapper">
 
-            <div class="welcomePage">
+                <div class="welcomePage">
 
-                <p id="errorMessage"></p>
-                <!-- <div class="input-group">
-                    <input required="" type="text" name="text" autocomplete="off" class="input">
-                    <label class="user-label">First Name</label>
-                </div> -->
-
-                <form>
-                    <label for="name"><h2>What's your name?</h2></label>
-                    <input type="text" id="name" placeholder="Name  ">
-
-                    <h2>Select Difficulty</h2>
-                    <input type="radio" name="select" value="easy" id="easy" class="sr-only">
-                    <label for="easy" class="difficulty">Easy</label>
-
-                    <input type="radio" name="select" value="medium" id="medium" class="sr-only">
-                    <label for="medium" class="difficulty">Medium</label>
-
-                    <input type="radio" name="select" value="hard" id="hard" class="sr-only">
-                    <label for="hard" class="difficulty">Hard</label>
-                </form>
-                
-                <button class="startGame" id="startButton">Start Game</button>
-                
-            </div> 
-        </div>
-    </section>
-</main>
+                    <p id="errorMessage" class="errorMessage"></p>
 
 
+                    <form>
+                        <!-- <div class="input-group">
+                            <input required="" type="text" name="text" autocomplete="off" class="input">
+                            <label class="user-label">First Name</label>
+                        </div> -->
+
+                        <label for="categorySelect"><h2>Choose a Category</h2></label>
+                        <select name="category" id="categorySelect" class="categorySelect">
+                            <option value="9" selected>General Knowledge</option>
+                            <option value="10">Books</option>
+                            <option value="12">Music</option>
+                            <option value="14">Television</option>
+                            <option value="15">Video Games</option>
+                            <option value="17">Science & Nature</option>
+                            <option value="20">Mythology</option>
+                            <option value="18">Computers</option>
+                            <option value="19">Math</option>
+                            <option value="22">Geography</option>
+                            <option value="23">History</option>
+                            <option value="24">Politics</option>
+                        </select>
+
+                        <label for="name"><h2>What's your name?</h2></label>
+                        <input type="text" id="name" placeholder="Name">
+
+                        <h2>Select Difficulty</h2>
+                        <input type="radio" name="select" value="easy" id="easy" class="sr-only" checked>
+                        <label for="easy" class="difficulty">Easy</label>
+
+                        <input type="radio" name="select" value="medium" id="medium" class="sr-only">
+                        <label for="medium" class="difficulty">Medium</label>
+
+                        <input type="radio" name="select" value="hard" id="hard" class="sr-only">
+                        <label for="hard" class="difficulty">Hard</label>
+                    </form>
+                    
+                    <button class="startGame" id="startButton">Start Game</button>
+                    
+                </div> 
+            </div>
+        </section>
+    </main>
 
 
 
 
 
+
+    <script src="https://kit.fontawesome.com/597cd7df3e.js" crossorigin="anonymous"></script>
     <script src="./script.js"></script>
 </body>
 </html>
