@@ -195,6 +195,67 @@ h1 {
 body {
   background: #1C0C5B;
   color: #5c5c5c;
+  position: relative;
+}
+body .info {
+  position: absolute;
+  top: -31px;
+  right: 50px;
+  border: 1px solid white;
+  width: 40px;
+  text-align: center;
+  border-radius: 50%;
+  height: 37px;
+  background-color: orange;
+  z-index: 50;
+}
+body .info i {
+  position: absolute;
+  bottom: 7px;
+  left: 13px;
+  font-size: 24px;
+}
+body .info:hover {
+  background-color: white;
+  color: black;
+}
+body .about {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  right: 0;
+  top: -40px;
+  background-color: papayawhip;
+  z-index: 30;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+body .about .socials {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 50%;
+}
+body .about .socials ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+body .about .socials ul li {
+  list-style: none;
 }
 body h2 {
   font-size: 1.2rem;
@@ -205,7 +266,8 @@ header {
   color: white;
   font-family: "Montserrat", sans-serif;
 }
-header .neon {
+
+.neon {
   text-transform: uppercase;
   font-family: "Abel", sans-serif;
   font-size: 3rem;

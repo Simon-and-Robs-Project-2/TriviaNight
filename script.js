@@ -3,6 +3,7 @@ const triviaApp = {};
 // SELECTORS / VARIABLES
 triviaApp.startButton = document.getElementById('startButton');
 triviaApp.triviaCard = document.querySelector('div.welcomePage');
+triviaApp.infoButton = document.getElementById
 
 
 triviaApp.baseUrl = 'https://opentdb.com/api.php';
