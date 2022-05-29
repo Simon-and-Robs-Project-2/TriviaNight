@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,32 +9,45 @@
     <script src="https://kit.fontawesome.com/dc2acb7889.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
+
 <body>
-        <div id="info" class="info">
+    <div class="wrapper">
+        <div id="infoBubble" class="info">
             <i class="fa-solid fa-question"></i>
         </div>
-        <div class="about">
+        <div id="aboutBox" class="about">
+            <h2>How to play!</h2>
+            <p class="description">Choose from one of the following categories we have provided, then select a difficulty. Once you have completed
+                both steps please
+                enter a name of your choosing for the score at the end of the game </p>
+
             <h2>About</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam reiciendis id culpa cumque expedita ea dolores
-                sit voluptatum aliquid, exercitationem doloribus
-                quisquam dolorum facere nam repudiandae fugiat excepturi, error deserunt.</p>
+            <p class="description"> This app was created by Rob Petrungaro and Simon O'Connor at <a
+                    href="https://junocollege.com/"> <b>Juno College,</b></a>
+                Our Trivia Night app was created using the <a href="https://opentdb.com/api_config.php"><b>Open trivia
+                        database API.</b></a></p>
+            <div class="socials">
+                <ul>
+                    <li>
+                        <h3>Rob Petrungaro</h3>
+                        <div class="socialIcons">
+                            <p><a href="#"><i class="fa-brands fa-github"></i></a></p>
+                            <p><a href="#"><i class="fa-brands fa-linkedin"></i></a></p>
+                        </div>
+                    </li>
 
-                <div class="socials">
-                    <ul>
-                        <li>
-                            <h3>Rob</h3>
-                            <p><a href="#">github icon</a></p>
-                            <p><a href="#">Linkedin icon</a></p>
-                        </li>
-
-                        <li>
-                            <h3>Simon</h3>
-                            <p><a href="#">github icon</a></p>
-                            <p><a href="#">Linkedin icon</a></p>
-                        </li>
-                    </ul>
-                </div>
+                    <li>
+                        <h3>Simon O'Connor</h3>
+                        <div class="socialIcons">
+                            <p><a href="https://github.com/SimonOConnor28"><i class="fa-brands fa-github"></i></a></p>
+                            <p><a href="https://www.linkedin.com/in/simontoconnor/"><i
+                                        class="fa-brands fa-linkedin"></i></a></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </div>
     <header class="wrapper">
         <h1 class="neon">Welcome to Trivia Night!</h1>
     </header>
@@ -55,7 +69,9 @@
                             <label class="user-label">First Name</label>
                         </div> -->
 
-                        <label for="categorySelect"><h2>Choose a Category</h2></label>
+                        <label for="categorySelect">
+                            <h2>Choose a Category</h2>
+                        </label>
                         <select name="category" id="categorySelect" class="categorySelect">
                             <option value="9" selected>General Knowledge</option>
                             <option value="10">Books</option>
@@ -71,7 +87,9 @@
                             <option value="24">Politics</option>
                         </select>
 
-                        <label for="name"><h2>What's your name?</h2></label>
+                        <label for="name">
+                            <h2>What's your name?</h2>
+                        </label>
                         <input type="text" id="name" placeholder="Name">
 
                         <h2>Select Difficulty</h2>
@@ -84,10 +102,10 @@
                         <input type="radio" name="select" value="hard" id="hard" class="sr-only">
                         <label for="hard" class="difficulty">Hard</label>
                     </form>
-                    
+
                     <button class="startGame" id="startButton">Start Game</button>
-                    
-                </div> 
+
+                </div>
             </div>
         </section>
     </main>
@@ -100,4 +118,5 @@
     <script src="https://kit.fontawesome.com/597cd7df3e.js" crossorigin="anonymous"></script>
     <script src="./script.js"></script>
 </body>
+
 </html>

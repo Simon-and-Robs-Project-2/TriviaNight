@@ -3,7 +3,8 @@ const triviaApp = {};
 // SELECTORS / VARIABLES
 triviaApp.startButton = document.getElementById('startButton');
 triviaApp.triviaCard = document.querySelector('div.welcomePage');
-triviaApp.infoButton = document.getElementById
+triviaApp.infoButton = document.getElementById('infoBubble');
+triviaApp.aboutSection = document.getElementById('aboutBox');
 
 
 triviaApp.baseUrl = 'https://opentdb.com/api.php';
@@ -15,6 +16,10 @@ triviaApp.scoreCounter = 0;
 triviaApp.init = () => {
     triviaApp.startGame();
 }
+
+triviaApp.infoButton.addEventListener('click', function() {
+    triviaApp.aboutSection.classList.toggle('show')
+})
 
 // Add an event listener that will take the user's selected difficulty, and then run the getQuestions function when clicking 'Start Game':
 triviaApp.startGame = () => {

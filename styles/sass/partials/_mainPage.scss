@@ -2,55 +2,134 @@ body {
     background: $bodyBackground;
     color: #5c5c5c;
     position: relative;
-        .info {
-                position: absolute;
-                    top: -31px;
-                    right: 50px;
-                    border: 1px solid white;
-                    width: 40px;
-                    text-align: center;
-                    border-radius: 50%;
-                    height: 37px;
-                    background-color: orange;
-                    z-index: 50;
-                i {
-                    position: absolute;
-                    bottom: 7px;
-                    left: 13px;
-                    font-size: 24px;
-                    
-                }
-        
-                &:hover {
-                    background-color: white;
-                    color: black;
-                }
+
+    .info {
+        position: absolute;
+        background-color: orange;
+        top: -31px;
+        right: 50px;
+        border: 1px solid white;
+        border-radius: 50%;
+        width: 40px;
+        text-align: center;
+        height: 37px;
+        z-index: 50;
+
+        i {
+            position: absolute;
+            bottom: 7px;
+            left: 13px;
+            font-size: 24px;
+        }
+
+        &:hover {
+            background-color: white;
+            color: black;
+            animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
+        @keyframes shake {
+
+            10%,
+            90% {
+                transform: translate3d(-1px, 0, 0);
             }
-            .about {
-                position: absolute;
-                width: 100vw;
-                height: 100vh;
-                right: 0;
-                top: -40px;
-                background-color: papayawhip;
-                z-index: 30;
-                text-align: center;
+
+            20%,
+            80% {
+                transform: translate3d(2px, 0, 0);
+            }
+
+            30%,
+            50%,
+            70% {
+                transform: translate3d(-4px, 0, 0);
+            }
+
+            40%,
+            60% {
+                transform: translate3d(4px, 0, 0);
+            }
+        }
+    }
+
+    .about {
+        position: absolute;
+        width: 100vw;
+        height: 125vh;
+        right: 0;
+        top: -40px;
+        background-color: papayawhip;
+        z-index: 30;
+        text-align: center;
+        flex-direction: column;
+        align-items: center;
+        display: none;
+        font-family: $secondaryFont;
+        color: black;
+
+        a {
+            text-decoration: none;
+            color: black;
+            font-family: $secondaryFont;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        h2 {
+            padding-top: 80px;
+            font-size: 3.5rem;
+            font-family: $secondaryFont;
+            text-transform: uppercase;
+        }
+
+        .description {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        .socials {
+            display: flex;
+            width: 50%;
+            margin: 0 auto;
+
+            h3 {
+                margin-bottom: 0;
+            }
+
+            ul {
                 display: flex;
-                flex-direction: column;
-                align-items: center;
-                .socials {
-                    display: flex;
-                    width: 50%;
-                    ul {
+                width: 100%;
+                justify-content: space-evenly;
+                padding: 0;
+
+                li {
+                    list-style: none;
+
+                    .socialIcons {
                         display: flex;
-                        width: 100%;
-                        justify-content: space-evenly;
-                        li  {
-                            list-style: none;
+
+                        a {
+                            padding-right: 20px;
+                            color: black;
+                            &:hover {
+                            color: black;
+                            opacity: .5;
+                            }
                         }
                     }
                 }
             }
+        }
+
+        &.show {
+            display: block;
+        }
+    }
 
     h2 {
         font-size: 1.2rem;
@@ -62,18 +141,19 @@ header {
     color: white;
     font-family: $primaryFont;
 }
-    .neon {
-        text-transform: uppercase;
-        font-family: $secondaryFont;
-            font-size: 3rem;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            text-shadow: 0 0 0.95em #1da9cc;
-            user-select: none;
-            filter: blur(0.007em);
-    }
+
+.neon {
+    text-transform: uppercase;
+    font-family: $secondaryFont;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-shadow: 0 0 0.95em #1da9cc;
+    user-select: none;
+    filter: blur(0.007em);
+}
 
 
 section {
@@ -133,7 +213,7 @@ section {
 
         &.shrink {
             transform: scale(0) rotate(360deg);
-            
+
         }
     }
 }
@@ -149,7 +229,7 @@ form {
     input[type="text"],
     .difficulty,
     .answer {
-        border:none;
+        border: none;
         border-radius: 15px;
         padding: 15px;
     }
@@ -180,7 +260,7 @@ form {
         opacity: 0.01;
         position: absolute;
 
-        &:checked + label {
+        &:checked+label {
             background: $accentTwo;
         }
     }
@@ -188,23 +268,23 @@ form {
 
     label.difficulty,
     label.answer {
-            background-color: $accentOne;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 5px 0;
-            font-family: $secondaryFont;
-            font-size: 1.4rem;
-            color: white;
-            position:relative;
-            cursor: pointer;
-            transition: background-color .3s;
+        background-color: $accentOne;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 5px 0;
+        font-family: $secondaryFont;
+        font-size: 1.4rem;
+        color: white;
+        position: relative;
+        cursor: pointer;
+        transition: background-color .3s;
 
-            &:hover,
-            &:focus {
-                background-color: $secondaryColor;
-            }
-        }   
+        &:hover,
+        &:focus {
+            background-color: $secondaryColor;
+        }
     }
+}
 
 
 // next question button styles
@@ -277,24 +357,26 @@ button:active .button_top {
         font-size: 1rem;
         background-color: white;
         color: #f5f5f5;
-        transition: border 150ms cubic-bezier(0.4,0,0.2,1);
+        transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
     }
-       
-       .user-label {
+
+    .user-label {
         position: absolute;
         left: 15px;
         color: #e8e8e8;
         pointer-events: none;
         transform: translateY(1rem);
-        transition: 150ms cubic-bezier(0.4,0,0.2,1);
+        transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
     }
-       
-       .input:focus, input:valid {
+
+    .input:focus,
+    input:valid {
         outline: none;
         border: 1.5px solid #1a73e8;
     }
-       
-       .input:focus ~ label, input:valid ~ label {
+
+    .input:focus~label,
+    input:valid~label {
         transform: translateY(-90%) scale(0.8);
         background: none;
         padding: 0 .2em;
@@ -309,11 +391,10 @@ button:active .button_top {
     background-position: center top;
     background-repeat: no-repeat;
     display: block;
-    height:300px;
+    height: 300px;
     width: 100%;
     margin: 0 auto;
     left: 0;
     right: 0;
     z-index: 10;
 }
-
