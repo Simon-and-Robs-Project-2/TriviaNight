@@ -6,20 +6,23 @@ triviaApp.triviaCard = document.querySelector('div.welcomePage');
 triviaApp.infoButton = document.getElementById('infoBubble');
 triviaApp.aboutSection = document.getElementById('aboutBox');
 
-
 triviaApp.baseUrl = 'https://opentdb.com/api.php';
 triviaApp.allQuestions = [];
 triviaApp.questionCounter = 0;
 triviaApp.scoreCounter = 0;
 
-// init function definition
+// INITIALIZER FUNCTION
 triviaApp.init = () => {
+    triviaApp.addInfoListener();
     triviaApp.startGame();
 }
 
-triviaApp.infoButton.addEventListener('click', function() {
-    triviaApp.aboutSection.classList.toggle('show')
-})
+
+triviaApp.addInfoListener = () => {
+    triviaApp.infoButton.addEventListener('click', function() {
+        triviaApp.aboutSection.classList.toggle('show')
+    });
+} 
 
 // Add an event listener that will take the user's selected difficulty, and then run the getQuestions function when clicking 'Start Game':
 triviaApp.startGame = () => {
@@ -70,10 +73,9 @@ triviaApp.getQuestions = (difficulty, topic) => {
 
 
 // First check if the user has completed X number of questions - if not, load a question. If they have reached the limit, end the game:
-
 triviaApp.loadQuestion = (indexNumber) => {
 
-    if ( triviaApp.questionCounter <= 9) {
+    if ( triviaApp.questionCounter <= 4) {
         // Get all the necessary data for the question from the allQuestions array:
         const question = triviaApp.decode(triviaApp.allQuestions[indexNumber].question)  ;
         const wrongAnswers = triviaApp.allQuestions[indexNumber].incorrect_answers;
@@ -88,8 +90,7 @@ triviaApp.loadQuestion = (indexNumber) => {
         allAnswers.push(rightAnswer);
         // remove html encoding
         allAnswers.forEach((answer) => {
-            const decodedAnswers =  triviaApp.decode(answer);
-            // ! return triviaApp.removeCharacters(decodedAnswers);
+            return triviaApp.decode(answer);
         })
         // Randomly shuffle the order of the allAnswers array:
         triviaApp.shuffle(allAnswers);
@@ -105,27 +106,25 @@ triviaApp.loadQuestion = (indexNumber) => {
 
         
         // If the user has gone through all the question, run endOfGame:
-    } else { 
-        triviaApp.endOfGame();
-    }
+        } else { 
+            triviaApp.endOfGame();
+        }
 }
 
 // Randomizer helper function to shuffle the order of the all answers array:
 // Solution found from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-
 triviaApp.shuffle = (array) => {
     let currentIndex = array.length,  randomIndex;
 
     // While there remain elements to shuffle.
     while (currentIndex != 0) {
 
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
 
     return array;
@@ -180,7 +179,7 @@ triviaApp.checkAnswer = (rightAnswer, submitButton) => {
     
     // Response for an incorrect answer or an empty answer:
     const computerReply = document.createElement('p');
- 
+
 
     // check if the user has selected an answer when they submit:
     if (!userAnswer) {
@@ -219,7 +218,6 @@ triviaApp.checkAnswer = (rightAnswer, submitButton) => {
 
         triviaApp.triviaCard.append(computerReply);
 
-        // allAnswerLabels.style.background = 'red';
         userAnswerLabel.style.background = '#DF6A6A';
     }
 
@@ -267,26 +265,4 @@ triviaApp.endOfGame = () => {
     })
 }
 
-// ! triviaApp.removeCharacters = (string) => {
-//     string = string.replace(/[&\/\\#,+()$~%.'":*<>{}]/g, '');
-//     return string;
-// }
-
-
-
-// //startGameFunction will make the API call to retrive the trivia questions
-    //  //should the returned object/array be stored to a variable within the startGameFunction? If so, we should define an empty variable before making the API call, and then push the API response to the empty array. Or should we work directly from the returned object/array inside the .then()?
-
-// Once we have the array of questions, maybe call a function like loadQuestion(#), where # would be the first question in the array so loadQuestion(array[0]), and then when the user submits their answer, we could have it run loadQuestion(array[1]), etc... so we would need a counter to keep track of what question they are on?
-
-
-
-
-
-    // checkAnswerFunction will take the .value of whichever answer was chosen by the user and compare it against the original correct answer we got from the API. If correct, up a counter by 1 and visually show the user they were corect (another function or just write it in the if-statement?), if incorrect, score counter does not change but shows that user was incorrect. In both scenarios, we will still need to go to the next question, so clear all the current html elements and loadQuestion(array[whatever the next number is]) or some other way of moving to the next question?
-
-    // Once the user has reached the last question, stop trying to load questions and show them a screen with their score. Not sure how we know if the user is on the last question yet. Maybe we need an if-statement somewhere to check what question they are on somewhere in the logic above.
-
-
-// init function call
 triviaApp.init()

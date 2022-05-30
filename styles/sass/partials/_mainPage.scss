@@ -1,67 +1,52 @@
 body {
     background: $bodyBackground;
     color: #5c5c5c;
-    position: relative;
+    // position: relative;
 
     .info {
-        position: absolute;
-        background-color: orange;
-        top: -31px;
-        right: 50px;
-        border: 1px solid white;
-        border-radius: 50%;
-        width: 40px;
-        text-align: center;
-        height: 37px;
+        position: fixed;
+        top: 0;
+        right: 0;
         z-index: 50;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin: 20px;
+        background-color: $accentTwo;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        cursor: pointer;
 
         i {
-            position: absolute;
-            bottom: 7px;
-            left: 13px;
+            color: white;
             font-size: 24px;
         }
 
         &:hover {
             background-color: white;
-            color: black;
             animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
             transform: translate3d(0, 0, 0);
             backface-visibility: hidden;
             perspective: 1000px;
-        }
 
-        @keyframes shake {
-
-            10%,
-            90% {
-                transform: translate3d(-1px, 0, 0);
-            }
-
-            20%,
-            80% {
-                transform: translate3d(2px, 0, 0);
-            }
-
-            30%,
-            50%,
-            70% {
-                transform: translate3d(-4px, 0, 0);
-            }
-
-            40%,
-            60% {
-                transform: translate3d(4px, 0, 0);
+            i {
+                color: black;
             }
         }
     }
 
-    .about {
-        position: absolute;
+    .about {    
+        position: fixed;
         width: 100vw;
-        height: 125vh;
+        top:0;
+        bottom: 0;
         right: 0;
-        top: -40px;
+        left: 0;
+        
+        right: 0;
         background-color: papayawhip;
         z-index: 30;
         text-align: center;
@@ -130,95 +115,93 @@ body {
             display: block;
         }
     }
-
-    h2 {
-        font-size: 1.2rem;
-        line-height: 1.5rem;
-    }
 }
 
+/* HEADER */
 header {
     color: white;
     font-family: $primaryFont;
+
+    &.wrapper {
+        width: 75%;
+    }
+
+
+    .neon {
+        text-transform: uppercase;
+        font-family: $secondaryFont;
+        font-size: 3rem;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        text-shadow: 0 0 0.95em #1da9cc;
+        user-select: none;
+        filter: blur(0.007em);
+    }
 }
 
-.neon {
-    text-transform: uppercase;
-    font-family: $secondaryFont;
-    font-size: 3rem;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    text-shadow: 0 0 0.95em #1da9cc;
-    user-select: none;
-    filter: blur(0.007em);
-}
 
-
+/* MAIN STYLING */
 section {
     text-align: center;
-    // border: 3px solid black;
     width: 50%;
     margin: 0 auto;
     border-radius: 45px;
-    // max-height: 100vh;
     background-color: $cardBackground;
-}
 
-
-
-.welcomePage {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 0 125px 0;
-
-    p {
-        font-family: $secondaryFont;
-        display: block;
-        width: 70%;
-        margin-bottom: 20px;
-        margin-top: 5px;
-        font-size: 1.3rem;
-
-        &.errorMessage {
-            font-size: 1rem;
-            font-style: italic;
-            color: red;
-            margin: 0;
+    .welcomePage {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 50px 0 125px 0;
+    
+        p {
+            font-family: $secondaryFont;
+            display: block;
+            width: 70%;
+            margin-bottom: 20px;
+            margin-top: 5px;
+            font-size: 1.3rem;
+    
+            &.errorMessage {
+                font-size: 1rem;
+                font-style: italic;
+                color: red;
+                background: white;
+                margin: 0;
+            }
+        }
+    
+        .startGame {
+            display: block;
+            position: absolute;
+            bottom: -75px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto;
+            border: none;
+            color: white;
+            background: $accentTwo;
+            font-family: $secondaryFont;
+            font-size: 1.4rem;
+            transition: transform .5s;
+    
+            &:hover {
+                transform: scale(1.1);
+            }
+    
+            &.shrink {
+                transform: scale(0) rotate(360deg);
+            }
         }
     }
-
-    .startGame {
-        display: block;
-        position: absolute;
-        bottom: -75px;
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        margin: 0 auto;
-        border: none;
-        color: white;
-        background: $accentTwo;
-        font-family: $secondaryFont;
-        font-size: 1.4rem;
-        transition: transform .5s;
-
-        &:hover {
-            transform: scale(1.1);
-        }
-
-        &.shrink {
-            transform: scale(0) rotate(360deg);
-
-        }
-    }
 }
 
-
+/* FORM STYLING */
 form {
     margin: 0 auto;
     display: flex;
@@ -286,8 +269,8 @@ form {
     }
 }
 
-
-// next question button styles
+/* BUTTON STYLING */ 
+/* From uiverse.io by @Voxybuns */
 
 button {
     /* Variables */
@@ -304,8 +287,6 @@ button {
     padding: 1px;
     bottom: 15px;
 }
-
-// FANCY BUTTON
 
 .button_top {
     display: block;
@@ -342,48 +323,8 @@ button:active .button_top {
     transform: translateY(0);
 }
 
-// FANCY TEXT INPUT
 
-/* From uiverse.io by @alexruix */
-.input-group {
-    position: relative;
-
-    .input {
-        width: 90%;
-        border: solid 1.5px #9e9e9e;
-        border-radius: 15px;
-        background: none;
-        padding: 1rem;
-        font-size: 1rem;
-        background-color: white;
-        color: #f5f5f5;
-        transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .user-label {
-        position: absolute;
-        left: 15px;
-        color: #e8e8e8;
-        pointer-events: none;
-        transform: translateY(1rem);
-        transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .input:focus,
-    input:valid {
-        outline: none;
-        border: 1.5px solid #1a73e8;
-    }
-
-    .input:focus~label,
-    input:valid~label {
-        transform: translateY(-90%) scale(0.8);
-        background: none;
-        padding: 0 .2em;
-        color: #2196f3;
-    }
-}
-
+/* CORRECT ANSWER */
 .congrats {
     position: absolute;
     bottom: 0;
