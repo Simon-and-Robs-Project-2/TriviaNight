@@ -111,32 +111,8 @@ triviaApp.loadQuestion = (indexNumber) => {
         }
 }
 
-// Randomizer helper function to shuffle the order of the all answers array:
-// Solution found from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-triviaApp.shuffle = (array) => {
-    let currentIndex = array.length,  randomIndex;
 
-    // While there remain elements to shuffle.
-    while (currentIndex != 0) {
-
-        // Pick a remaining element.
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-
-        // And swap it with the current element.
-        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-    }
-
-    return array;
-}
-
-// Helper function to decode the html encoding that are present on some questions/answers. Solution found here: https://tertiumnon.medium.com/js-how-to-decode-html-entities-8ea807a140e5
-triviaApp.decode = (text) => {
-    const textArea = document.createElement('textarea');
-    textArea.innerHTML = text;
-    return textArea.value;
-}
-
+// Function to build the questions on the page
 triviaApp.buildQuestion = (question, arrayOfAnswers) => {
     triviaApp.triviaCard.innerHTML = '';
 
@@ -172,6 +148,7 @@ triviaApp.buildQuestion = (question, arrayOfAnswers) => {
 
 }
 
+// Function to check the user's answer
 triviaApp.checkAnswer = (rightAnswer, submitButton) => {
     const userAnswer = document.querySelector('input[name="triviaAnswer"]:checked');
     const userAnswerLabel = document.querySelector('input[name="triviaAnswer"]:checked + label');
@@ -236,6 +213,7 @@ triviaApp.checkAnswer = (rightAnswer, submitButton) => {
 }
 }
 
+// Function to display score and allow user to play again
 triviaApp.endOfGame = () => {
     
     let endGameMessage;
@@ -265,4 +243,34 @@ triviaApp.endOfGame = () => {
     })
 }
 
+
+// HELPER FUNCTIONS
+
+// Randomizer helper function to shuffle the order of the all answers array:
+// Solution found from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+triviaApp.shuffle = (array) => {
+    let currentIndex = array.length,  randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}
+
+// Helper function to decode the html encoding that are present on some questions/answers. Solution found here: https://tertiumnon.medium.com/js-how-to-decode-html-entities-8ea807a140e5
+triviaApp.decode = (text) => {
+    const textArea = document.createElement('textarea');
+    textArea.innerHTML = text;
+    return textArea.value;
+}
+
+// Initializer function
 triviaApp.init()
