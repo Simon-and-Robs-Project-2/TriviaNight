@@ -303,6 +303,7 @@ body .about a {
   text-decoration: none;
   color: black;
   font-family: "Abel", sans-serif;
+  font-weight: bold;
 }
 body .about a:hover {
   text-decoration: underline;
@@ -588,16 +589,20 @@ button:active .button_top {
 }
 @media (max-width: 900px) {
   section {
-    width: 60%;
+    width: 75%;
   }
 }
 @media (max-width: 760px) {
   body .about h2 {
     font-size: 2.5rem;
-    padding-top: 20px;
+    padding-top: 50px;
   }
   body .about .socials {
     width: 70%;
+  }
+
+  section {
+    width: 85%;
   }
 }
 @media (max-width: 615px) {
@@ -628,12 +633,12 @@ button:active .button_top {
         -ms-flex-align: center;
             align-items: center;
   }
-
-  section {
-    width: 85%;
-  }
 }
 @media (max-width: 450px) {
+  body .info {
+    margin: 4px;
+  }
+
   section {
     width: 95%;
   }

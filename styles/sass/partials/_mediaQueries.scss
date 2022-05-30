@@ -7,7 +7,7 @@
 
 @media (max-width:900px) {
     section {
-        width: 60%;
+        width: 75%;
         
     }
 }
@@ -16,12 +16,15 @@
     body .about {
             h2 {
                 font-size: 2.5rem;
-                padding-top: 20px;
+                padding-top: 50px;
             }
 
             .socials {
                     width: 70%;
                 }
+        }
+        section {
+            width: 85%;
         }
 
 }
@@ -44,6 +47,7 @@
                     }
                 }
         }
+
     }
 }
 
@@ -60,12 +64,12 @@
                 }
             }
         }
-        section {
-            width: 85%;
-        }
 }
 
 @media (max-width:450px) {
+    body .info{
+        margin: 4px;
+    }
         section {
             width: 95%;
         }
@@ -73,4 +77,3 @@
             font-size: 2.5rem;
         }
 }
-
